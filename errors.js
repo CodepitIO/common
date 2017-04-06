@@ -8,4 +8,5 @@ module.exports = {
     ResourceNotFound: new Error('Resource not found.'),
     NoImportForOJ: new Error('No import function for specified Online Judge.'),
     ImportFailed: new Error('Import failed.'),
+    UnretriableError: new Error('There\'s something wrong with this submission and it cannot be retried.'),
 };

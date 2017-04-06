@@ -1,5 +1,7 @@
 'use strict';
 
+require('./user')
+
 const mongoose = require('mongoose')
 
 const ValidateChain = require('../lib/utils').validateChain

@@ -1,5 +1,8 @@
 'use strict';
 
+require('./user')
+require('./team')
+
 const mongoose = require('mongoose'),
   _ = require('lodash')
 

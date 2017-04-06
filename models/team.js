@@ -1,3 +1,7 @@
+'use strict'
+
+require('./user')
+
 const mongoose = require('mongoose'),
   _ = require('lodash')
 

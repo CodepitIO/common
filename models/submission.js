@@ -1,5 +1,9 @@
 'use strict';
 
+require('./problem')
+require('./contest')
+require('./user')
+
 const mongoose = require('mongoose')
 
 const ObjectId = mongoose.Schema.Types.ObjectId
