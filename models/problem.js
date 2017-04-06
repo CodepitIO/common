@@ -1,6 +1,7 @@
 'use strict'
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const Utils = require('../lib/utils');
 
 let problemSchema = mongoose.Schema({
   id: String,
@@ -44,7 +45,7 @@ problemSchema.post('save', (problem, next) => {
   let oj = problem.oj
   let id = problem.id
   let name = problem.name
-  const OJConfig = require(`../adapters/${oj}/config.js`);
+  const OJConfig = Utils.getOJConfig(oj);
   problem.fullName = "[" + OJConfig.name + " " + id + "] " + name
   if (!problem.url) {
     problem.url = OJConfig.url + OJConfig.getProblemPath(id)
