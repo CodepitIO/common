@@ -40,6 +40,8 @@ problemSchema.index({
   unique: true
 })
 
+problemSchema.index({ originalUrl: 1 })
+
 problemSchema.post('save', (problem, next) => {
   if (problem.fullName && problem.url && problem.originalUrl) return next()
   let oj = problem.oj
@@ -50,10 +52,12 @@ problemSchema.post('save', (problem, next) => {
   if (!problem.url) {
     problem.url = OJConfig.url + OJConfig.getProblemPath(id)
   }
-  if (problem.isPdf) {
-    problem.originalUrl = OJConfig.url + OJConfig.getProblemPdfPath(id)
-  } else {
-    problem.originalUrl = OJConfig.url + OJConfig.getProblemPath(id)
+  if (!problem.originalUrl) {
+    if (problem.isPdf) {
+      problem.originalUrl = OJConfig.url + OJConfig.getProblemPdfPath(id)
+    } else {
+      problem.originalUrl = OJConfig.url + OJConfig.getProblemPath(id)
+    }
   }
   problem.save(next)
 })
