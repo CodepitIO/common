@@ -5,7 +5,7 @@ const Utils = require('../lib/utils');
 
 let problemSchema = mongoose.Schema({
   id: String,
-  sid: String, // id to submit the problem
+  sid: String, // substitute id for the problem
   name: String,
   oj: String,
   url: String,
@@ -47,9 +47,6 @@ problemSchema.post('save', (problem, next) => {
   if (problem.fullName && problem.url && problem.originalUrl) return next()
   let oj = problem.oj
   let id = problem.id
-  if (!problem.sid) {
-    problem.sid = id
-  }
   let name = problem.name
   const OJConfig = Utils.getOJConfig(oj);
   problem.fullName = "[" + OJConfig.name + " " + id + "] " + name
