@@ -35,9 +35,12 @@ module.exports = {
   },
   url: 'http://codeforces.com',
   getProblemPath: (id) => {
-    let cid = _.split(id, '/')[0];
-    let pid = _.split(id, '/')[1];
-    return `/gym/${cid}/problem/${pid}`;
+    let split = _.split(id, '/');
+    if (split.length === 3) {
+      return `/group/${split[0]}/contest/${split[1]}/problem/${split[2]}`;
+    } else {
+      return `/gym/${split[0]}/problem/${split[1]}`;
+    }
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
   submissionTTL: 60 * 60 * 1000,

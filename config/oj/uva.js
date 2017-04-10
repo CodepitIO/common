@@ -8,7 +8,6 @@ module.exports = {
     'cpp11'   : '5',
     'java'    : '2',
     'python3' : '6',
-    // 'pascal' : '4',
   },
   verdictId: {
     'Can\'t be judged' : 11,

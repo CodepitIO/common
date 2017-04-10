@@ -29,6 +29,10 @@ let problemSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
+  stmtLanguage: {
+    type: String,
+    default: 'english',
+  },
   supportedLangs: [ String ],
 }, {
   timestamps: true
