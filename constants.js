@@ -34,6 +34,7 @@ C.STATIC_ASSETS_DOMAIN = (process.env.NODE_ENV !== 'development') ?
 C.LANGUAGES = ['c', 'cpp', 'cpp11', 'java', 'python2.7', 'python3'];
 C.OJS = [
   'cf',
+  'cfgroups',
   'cfgym',
   'codechef',
   'huxley',

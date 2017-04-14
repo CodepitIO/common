@@ -1,6 +1,7 @@
 const _ = require('lodash');
 
 const SUPPORTED_LANGS = ['c', 'cpp', 'cpp11', 'java', 'python2.7', 'python3'];
+const TRACKED_GROUPS = [ 'kZPk3ZTzR5' ];
 
 module.exports = {
   name: 'Codeforces Gym',
@@ -36,8 +37,9 @@ module.exports = {
   url: 'http://codeforces.com',
   getProblemPath: (id) => {
     let split = _.split(id, '/');
-    return `/gym/${split[0]}/problem/${split[1]}`;
+    return `/group/${split[0]}/contest/${split[1]}/problem/${split[2]}`;
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
+  getTrackedGroups: () => TRACKED_GROUPS,
   submissionTTL: 60 * 60 * 1000,
 }
