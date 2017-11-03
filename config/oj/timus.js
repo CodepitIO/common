@@ -3,13 +3,13 @@ const SUPPORTED_LANGS = ['c', 'cpp', 'cpp11', 'cpp14', 'java', 'python2.7', 'pyt
 module.exports = {
   name: 'Timus',
   submitLang: {
-    'c'         : '25',
-    'cpp'       : '26',
-    'cpp11'     : '28',
-    'cpp14'     : '30',
+    'c'         : '45',
+    'cpp'       : '46',
+    'cpp11'     : '46',
+    'cpp14'     : '46',
     'java'      : '32',
     'python2.7' : '34',
-    'python3'   : '35',
+    'python3'   : '48',
     // 'pascal'  : '31',
   },
   verdictId: {
