@@ -27,7 +27,6 @@ let schema = mongoose.Schema({
 
 schema.index({ 'local.username': 1 }, { unique: true })
 schema.index({ 'local.email': 1 }, { unique: true })
-schema.index({ 'local.verifyHash': 1 }, { unique: true })
 
 schema.statics.validateChain = ValidateChain({
   name: function() {
