@@ -13,7 +13,7 @@ module.exports = {
   name: 'CodeChef',
   submitLang: {
     'c'         : '11',
-    'cpp'       : '1',
+    'cpp'       : '44',
     'cpp11'     : '44',
     'cpp14'     : '44',
     'java'      : '10',
