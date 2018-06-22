@@ -22,10 +22,10 @@ module.exports = {
   },
   url: 'http://poj.org',
   getProblemPath: (id) => {
-    return '/problem?id=' + id
+    return '/problem?id=' + id;
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
   intervalPerAdapter: 6000,
   submissionTTL: 60 * 60 * 1000,
   maxImportWorkers: 1,
-}
+};

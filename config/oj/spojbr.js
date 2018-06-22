@@ -1,4 +1,4 @@
-const _ = require('lodash')
+const _ = require('lodash');
 
 const SUPPORTED_LANGS = {
     'C-CLANG': 'c',
@@ -10,7 +10,7 @@ const SUPPORTED_LANGS = {
     'JAVA': 'java',
     'PYTHON': 'python2.7',
     'PYTHON3': 'python3',
-}
+};
 
 function getContained(langString) {
   return _.chain(langString)
@@ -56,4 +56,4 @@ module.exports = {
     let accepted = _.chain(SUPPORTED_LANGS).values().flatten().uniq().value();
     return _.difference(accepted, langString);
   },
-}
+};

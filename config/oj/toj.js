@@ -23,9 +23,9 @@ module.exports = {
   },
   url: 'http://acm.tju.edu.cn',
   getProblemPath: (id) => {
-    return `/toj/showp${id}.html`
+    return `/toj/showp${id}.html`;
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
   intervalPerAdapter: 6000,
   submissionTTL: 60 * 60 * 1000,
-}
+};

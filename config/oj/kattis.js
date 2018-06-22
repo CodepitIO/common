@@ -28,4 +28,4 @@ module.exports = {
     return `/problems/${id}`;
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
-}
+};

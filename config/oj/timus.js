@@ -38,4 +38,4 @@ module.exports = {
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
   intervalPerAdapter: 6000,
-}
+};

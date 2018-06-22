@@ -25,9 +25,9 @@ module.exports = {
   },
   url: 'http://acm.zju.edu.cn',
   getProblemPath: (id) => {
-    return `/onlinejudge/showProblem.do?problemCode=${id}`
+    return `/onlinejudge/showProblem.do?problemCode=${id}`;
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
   intervalPerAdapter: 6000,
   submissionTTL: 60 * 60 * 1000,
-}
+};

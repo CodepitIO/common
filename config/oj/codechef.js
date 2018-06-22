@@ -7,7 +7,7 @@ const SUPPORTED_LANGS = {
     'JAVA': 'java',
     'PYTH': 'python2.7',
     'PYTH 3.4': 'python3',
-}
+};
 
 module.exports = {
   name: 'CodeChef',
@@ -50,4 +50,4 @@ module.exports = {
       .value();
     return supported;
   }
-}
+};

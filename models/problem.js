@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const mongoose = require('mongoose');
 const Utils = require('../lib/utils');
@@ -36,35 +36,35 @@ let problemSchema = mongoose.Schema({
   supportedLangs: [ String ],
 }, {
   timestamps: true
-})
+});
 
 problemSchema.index({
   oj: 1,
   id: 1
 }, {
   unique: true
-})
+});
 
-problemSchema.index({ originalUrl: 1 })
+problemSchema.index({ originalUrl: 1 });
 
 problemSchema.post('save', (problem, next) => {
-  if (problem.fullName && problem.url && problem.originalUrl) return next()
-  let oj = problem.oj
-  let id = problem.id
-  let name = problem.name
+  if (problem.fullName && problem.url && problem.originalUrl) return next();
+  let oj = problem.oj;
+  let id = problem.id;
+  let name = problem.name;
   const OJConfig = Utils.getOJConfig(oj);
-  problem.fullName = "[" + OJConfig.name + " " + id + "] " + name
+  problem.fullName = "[" + OJConfig.name + " " + id + "] " + name;
   if (!problem.url) {
-    problem.url = OJConfig.url + OJConfig.getProblemPath(id)
+    problem.url = OJConfig.url + OJConfig.getProblemPath(id);
   }
   if (!problem.originalUrl) {
     if (problem.isPdf) {
-      problem.originalUrl = OJConfig.url + OJConfig.getProblemPdfPath(id)
+      problem.originalUrl = OJConfig.url + OJConfig.getProblemPdfPath(id);
     } else {
-      problem.originalUrl = OJConfig.url + OJConfig.getProblemPath(id)
+      problem.originalUrl = OJConfig.url + OJConfig.getProblemPath(id);
     }
   }
-  problem.save(next)
-})
+  problem.save(next);
+});
 
-module.exports = mongoose.model('Problem', problemSchema)
+module.exports = mongoose.model('Problem', problemSchema);

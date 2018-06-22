@@ -40,4 +40,4 @@ module.exports = {
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
   submissionTTL: 60 * 60 * 1000,
-}
+};

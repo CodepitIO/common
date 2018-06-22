@@ -42,4 +42,4 @@ module.exports = {
   getSupportedLangs: () => SUPPORTED_LANGS,
   getTrackedGroups: () => TRACKED_GROUPS,
   submissionTTL: 60 * 60 * 1000,
-}
+};

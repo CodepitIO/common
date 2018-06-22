@@ -1,13 +1,13 @@
-'use strict'
+'use strict';
 
-require('./user')
+require('./user');
 
 const mongoose = require('mongoose'),
-  _ = require('lodash')
+  _ = require('lodash');
 
-const ObjectId = mongoose.Schema.Types.ObjectId
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const ValidateChain = require('../lib/utils').validateChain
+const ValidateChain = require('../lib/utils').validateChain;
 
 let schema = mongoose.Schema({
   name: String,
@@ -28,24 +28,24 @@ let schema = mongoose.Schema({
   }]
 }, {
   timestamps: true
-})
+});
 
-schema.index({ 'members': 1, '_id': 1 })
-schema.index({ 'invites': 1, '_id': 1 })
+schema.index({ 'members': 1, '_id': 1 });
+schema.index({ 'invites': 1, '_id': 1 });
 
 schema.statics.validateChain = ValidateChain({
   name: function() {
-    this.notEmpty().isLength({min: 1, max:50})
+    this.notEmpty().isLength({min: 1, max:50});
   },
   description: function() {
-    this.isLength({min: 0, max:200})
+    this.isLength({min: 0, max:200});
   },
-})
+});
 
 schema.methods.hasUser = function(userId) {
   return _.some(_.concat(this.members, this.invites), (user) => {
-    return _.toString(user) === _.toString(userId)
-  })
-}
+    return _.toString(user) === _.toString(userId);
+  });
+};
 
-module.exports = mongoose.model('Team', schema)
+module.exports = mongoose.model('Team', schema);

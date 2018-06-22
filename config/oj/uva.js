@@ -37,4 +37,4 @@ module.exports = {
   getProblemPdfPath: (id) => {
     return '/external/' + Math.floor(id/100) + '/p' + id + '.pdf';
   },
-}
+};

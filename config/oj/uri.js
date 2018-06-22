@@ -30,4 +30,4 @@ module.exports = {
   getSupportedLangs: () => SUPPORTED_LANGS,
   intervalPerAdapter: 6000,
   submissionTTL: 60 * 60 * 1000,
-}
+};

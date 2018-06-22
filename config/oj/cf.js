@@ -33,9 +33,9 @@ module.exports = {
   },
   url: 'http://codeforces.com',
   getProblemPath: (id) => {
-    let match = id.match(/(\d+)(.+)/i)
-    return '/problemset/problem/' + match[1] + '/' + match[2]
+    let match = id.match(/(\d+)(.+)/i);
+    return '/problemset/problem/' + match[1] + '/' + match[2];
   },
   getSupportedLangs: () => SUPPORTED_LANGS,
   submissionTTL: 60 * 60 * 1000,
-}
+};
