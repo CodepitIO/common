@@ -4,7 +4,7 @@ C.CONN = {
   MONGO: {
     HOST: 'mongo',
     PORT: 27017,
-    DB: 'maratonando',
+    DB: 'codepit',
     GET_URL: () => {
       return `mongodb://${C.CONN.MONGO.HOST}:${C.CONN.MONGO.PORT}/${C.CONN.MONGO.DB}`;
     },

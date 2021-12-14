@@ -1,10 +1,11 @@
 'use strict';
 
 const mongoose = require('mongoose'),
-  bcrypt = require('bcrypt'),
   crypto = require('crypto');
 
 const ValidateChain = require('../lib/utils').validateChain;
+
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const ACCESS = require('../constants').SITE_VARS.ACCESS;
 
@@ -15,7 +16,11 @@ let schema = mongoose.Schema({
     name: String,
     surname: String,
     email: String,
-    password: String,
+    password: {
+      hash: String,
+      salt: String
+    },
+    salt: String,
     verified: { type: Boolean, default: false },
     verifyHash: String,
     lastAccess: { type: Date, default: Date.now }
@@ -46,12 +51,17 @@ schema.statics.validateChain = ValidateChain({
   }
 });
 
-schema.statics.generateHash = function(text) {
-  return bcrypt.hashSync(text, bcrypt.genSaltSync(8));
+schema.statics.generatePassword = function(text) {
+  let salt = crypto.randomBytes(128).toString('base64');
+  let hash = crypto.pbkdf2Sync(text, salt, 100000, 64, 'sha512');
+  return {
+    salt: salt,
+    hash: hash
+  }
 };
 
-schema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.local.password);
+schema.methods.validPassword = function(text) {
+  return this.local.password.hash == crypto.pbkdf2Sync(text, this.local.password.salt, 100000, 64, 'sha512');
 };
 
 schema.virtual('local.fullName').get(function() {
