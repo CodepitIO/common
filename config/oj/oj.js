@@ -1,7 +1,7 @@
 const SUPPORTED_LANGS = ['c', 'cpp', 'cpp11', 'java', 'python3'];
 
 module.exports = {
-  name: 'UVa',
+  name: 'OnlineJudge',
   submitLang: {
     'c'       : '1',
     'cpp'     : '3',

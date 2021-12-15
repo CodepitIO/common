@@ -6,9 +6,6 @@ require('./team');
 const mongoose = require('mongoose'),
   _ = require('lodash');
 
-const Submission = require('./submission'),
-  ValidateChain = require('../lib/utils').validateChain;
-
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 let contestantSchema = mongoose.Schema({

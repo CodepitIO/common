@@ -8,7 +8,7 @@ let ojAccountSchema = mongoose.Schema({
   type: String,
   id: String,
   accessKey: String,
-});
+}, { collection: 'oj_account' });
 
 ojAccountSchema.methods.getUser = function() {
   return this.user;
