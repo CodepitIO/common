@@ -29,7 +29,7 @@ module.exports = {
     'Presentation error' : 8,
     'Accepted' : 1
   },
-  url: 'https://uva.onlinejudge.org',
+  url: 'https://onlinejudge.org',
   getProblemPath: (id) => {
     return '/external/' + Math.floor(id/100) + '/' + id + '.html';
   },
