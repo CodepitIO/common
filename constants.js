@@ -36,18 +36,18 @@ C.OJS = [
   'cf',
   'cfgroups',
   'cfgym',
-  'codechef',
-  'huxley',
+  // 'codechef',
+  // 'huxley',
   'kattis',
   'la',
   'poj',
   'spoj',
   'spojbr',
   'timus',
-  'toj',
-  'uri',
+  // 'toj',
+  // 'uri',
   'uva',
-  'zoj',
+  // 'zoj',
 ];
 
 C.JUDGE = {
