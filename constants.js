@@ -36,6 +36,7 @@ C.STATIC_ASSETS_DOMAIN =
 
 C.LANGUAGES = ["c", "cpp", "cpp11", "java", "python2.7", "python3"];
 C.OJS = [
+  "beecrowd",
   "cf",
   "cfgroups",
   "cfgym",
@@ -47,8 +48,6 @@ C.OJS = [
   "spoj",
   "spojbr",
   "timus",
-  "uri",
-  // 'zoj',
 ];
 
 C.JUDGE = {
