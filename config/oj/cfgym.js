@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 const SUPPORTED_LANGS = ["cpp", "cpp11", "java", "python2.7", "python3"];
 
 module.exports = {

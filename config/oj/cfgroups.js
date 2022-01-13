@@ -1,4 +1,5 @@
 const SUPPORTED_LANGS = ["cpp", "cpp11", "java", "python2.7", "python3"];
+const TRACKED_GROUPS = ["kZPk3ZTzR5"];
 
 module.exports = {
   name: "Codeforces Groups",
