@@ -1,17 +1,34 @@
-const SUPPORTED_LANGS = ["cpp", "cpp11", "java", "python2.7", "python3"];
+const _ = require("lodash");
+
+const SUPPORTED_LANGS = [
+  "c",
+  "cpp",
+  "cpp11",
+  "cpp14",
+  "cpp17",
+  "cpp20",
+  "java",
+  "python2.7",
+  "python3",
+  "go",
+  "haskell",
+];
 const TRACKED_GROUPS = ["kZPk3ZTzR5"];
 
 module.exports = {
   name: "Codeforces Groups",
   submitLang: {
-    cpp: "43",
-    cpp11: "43",
+    c: "43",
+    cpp: "50",
+    cpp11: "50",
     cpp14: "50",
     cpp17: "54",
     cpp20: "73",
-    java: "60",
+    java: "36",
     "python2.7": "7",
     python3: "31",
+    go: "32",
+    haskell: "12",
   },
   verdictId: {
     IN_QUEUE: -1,

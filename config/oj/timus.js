@@ -1,13 +1,27 @@
-const SUPPORTED_LANGS = ["c", "cpp", "java", "python3"];
+const SUPPORTED_LANGS = [
+  "c",
+  "cpp",
+  "cpp11",
+  "cpp14",
+  "cpp17",
+  "cpp20",
+  "java",
+  "python3",
+];
 
 module.exports = {
   name: "Timus",
   submitLang: {
     c: "67",
     cpp: "68",
+    cpp11: "68",
+    cpp14: "68",
+    cpp17: "68",
+    cpp20: "68",
     java: "32",
     python3: "57",
-    // 'pascal'  : '31',
+    go: "58",
+    haskell: "19",
   },
   verdictId: {
     "Can't be judged": 11,

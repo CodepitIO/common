@@ -1,14 +1,29 @@
-const SUPPORTED_LANGS = ["c", "cpp", "cpp11", "java", "python2.7", "python3"];
+const SUPPORTED_LANGS = [
+  "c",
+  "cpp",
+  "cpp11",
+  "cpp14",
+  "cpp17",
+  "java",
+  "python2.7",
+  "python3",
+  "go",
+  "haskell",
+];
 
 module.exports = {
   name: "Beecrowd",
   submitLang: {
     c: "1",
     cpp: "2",
-    cpp11: "2",
+    cpp11: "16",
+    cpp14: "16",
+    cpp17: "16",
     java: "3",
     "python2.7": "4",
-    python3: "5",
+    python3: "35",
+    go: "12",
+    haskell: "17",
   },
   verdictId: {
     Closed: 11,
