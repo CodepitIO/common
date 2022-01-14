@@ -24,7 +24,7 @@ function getContained(langString) {
 }
 
 module.exports = {
-  name: "Spoj",
+  name: "SpojBR",
   submitLang: {
     c: "11",
     cpp: "1",
