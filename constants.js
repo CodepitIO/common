@@ -34,7 +34,20 @@ C.STATIC_ASSETS_DOMAIN =
     ? "https://cdn.codepit.io"
     : "https://cdn-dev.codepit.io";
 
-C.LANGUAGES = ["c", "cpp", "cpp11", "java", "python2.7", "python3"];
+C.LANGUAGES = [
+  "c",
+  "cpp",
+  "cpp11",
+  "cpp14",
+  "cpp17",
+  "cpp20",
+  "java",
+  "python2.7",
+  "python3",
+  "go",
+  "haskell",
+];
+
 C.OJS = [
   "beecrowd",
   "cf",
