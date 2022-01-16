@@ -53,10 +53,9 @@ C.OJS = [
   "cf",
   "cfgroups",
   "cfgym",
-  "codechef",
   "kattis",
   "la",
-  "oj", // previously 'uva'
+  "oj",
   "poj",
   "spoj",
   "spojbr",
