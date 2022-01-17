@@ -1,53 +1,63 @@
-'use strict';
+"use strict";
 
-const mongoose = require('mongoose');
-const Utils = require('../lib/utils');
+const mongoose = require("mongoose");
+const Utils = require("../lib/utils");
 
-let problemSchema = mongoose.Schema({
-  id: String,
-  sid: String, // substitute id for the problem
-  name: String,
-  oj: String,
-  url: String,
-  originalUrl: String,
-  fullName: String,
-  imported: {
-    type: Boolean,
-    default: false
+let problemSchema = mongoose.Schema(
+  {
+    id: String,
+    sid: String, // substitute id for the problem
+    name: String,
+    oj: String,
+    url: String,
+    originalUrl: String,
+    fullName: String,
+    imported: {
+      type: Boolean,
+      default: false,
+    },
+    importTries: {
+      type: Number,
+      default: 0,
+    },
+    importDate: Date,
+    source: String,
+    timelimit: Number,
+    memorylimit: String,
+    inputFile: String,
+    outputFile: String,
+    isPdf: {
+      type: Boolean,
+      default: false,
+    },
+    stmtLanguage: {
+      type: String,
+      default: "english",
+    },
+    supportedLangs: [String],
   },
-  importTries: {
-    type: Number,
-    default: 0
+  {
+    timestamps: true,
+  }
+);
+
+problemSchema.index(
+  {
+    oj: 1,
+    id: 1,
   },
-  importDate: Date,
-  source: String,
-  timelimit: Number,
-  memorylimit: String,
-  inputFile: String,
-  outputFile: String,
-  isPdf: {
-    type: Boolean,
-    default: false
-  },
-  stmtLanguage: {
-    type: String,
-    default: 'english',
-  },
-  supportedLangs: [ String ],
-}, {
-  timestamps: true
-});
+  {
+    unique: true,
+  }
+);
 
 problemSchema.index({
-  oj: 1,
-  id: 1
-}, {
-  unique: true
+  originalUrl: 1,
 });
 
 problemSchema.index({ originalUrl: 1 });
 
-problemSchema.post('save', (problem, next) => {
+problemSchema.post("save", (problem, next) => {
   if (problem.fullName && problem.url && problem.originalUrl) return next();
   let oj = problem.oj;
   let id = problem.id;
@@ -67,4 +77,4 @@ problemSchema.post('save', (problem, next) => {
   problem.save(next);
 });
 
-module.exports = mongoose.model('Problem', problemSchema);
+module.exports = mongoose.model("Problem", problemSchema);
