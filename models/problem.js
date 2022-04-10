@@ -55,8 +55,6 @@ problemSchema.index({
   originalUrl: 1,
 });
 
-problemSchema.index({ originalUrl: 1 });
-
 problemSchema.post("save", (problem, next) => {
   if (problem.fullName && problem.url && problem.originalUrl) return next();
   let oj = problem.oj;
