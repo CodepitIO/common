@@ -79,7 +79,7 @@ schema.index({ "contestants.team": 1, "contestants.user": 1, _id: 1 });
 
 schema.methods.getUserRepresentative = function (user) {
   let id = (user?._id && _.toString(user._id)) || _.toString(user);
-  let elem = _.find(this.contestants, function (obj) {
+  let elem = _.find(this.contestants, (obj) => {
     return obj.user && _.toString(obj.user) === id;
   });
   return elem && (elem.team || elem.user);
