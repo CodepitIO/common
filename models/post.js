@@ -1,41 +1,52 @@
-'use strict';
+"use strict";
 
-require('./user');
+require("./user");
 
-const mongoose = require('mongoose');
-
-const ValidateChain = require('../lib/utils').validateChain;
+const mongoose = require("mongoose");
+const CollectionCounter = require("./collection_counter");
+const Joi = require("joi");
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-let schema = mongoose.Schema({
-  author: {
-    type: ObjectId,
-    ref: 'User'
+let schema = mongoose.Schema(
+  {
+    _id: { type: Number, min: 1 },
+    author: {
+      type: ObjectId,
+      ref: "User",
+    },
+    title: String,
+    body: String,
+    blog: String,
+    published: {
+      type: Boolean,
+      default: false,
+    },
+    publishAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  title: String,
-  body: String,
-  page: String,
-}, {
-  timestamps: true
-});
+  {
+    timestamps: true,
+  }
+);
 
+schema.index({ id: 1 });
 schema.index({ author: 1, createdAt: -1 });
 schema.index({ page: 1, createdAt: -1 });
 
-schema.statics.validateChain = ValidateChain({
-  author: function() {
-    this.isMongoId();
-  },
-  title: function() {
-    this.notEmpty().isLength({min: 1, max: 50});
-  },
-  body: function() {
-    this.notEmpty().isByteLength({min: 1, max: 30 * 1000});
-  },
-  home: function() {
-    this.optional().isBoolean();
-  },
+schema.statics.validate = function (obj) {
+  return Joi.object({
+    title: Joi.string().min(1).max(100).required(),
+    body: Joi.string().min(1).max(2000).required(),
+    author: Joi.string().min(1).max(100).required(),
+    blog: Joi.string().min(1).max(100).optional(),
+  }).validate(obj);
+};
+
+schema.pre("save", async function () {
+  await CollectionCounter.setIncrementalId(this, "Post");
 });
 
-module.exports = mongoose.model('Post', schema);
+module.exports = mongoose.model("Post", schema);

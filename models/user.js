@@ -1,16 +1,14 @@
-"use strict";
+const mongoose = require(`mongoose`);
+const crypto = require(`crypto`);
 
-const mongoose = require("mongoose"),
-  crypto = require("crypto");
+const ValidateChain = require(`../lib/utils`).validateChain;
 
-const ValidateChain = require("../lib/utils").validateChain;
+const { ObjectId } = mongoose.Schema.Types;
 
-const ObjectId = mongoose.Schema.Types.ObjectId;
-
-const ACCESS = require("../constants").SITE_VARS.ACCESS;
+const { ACCESS } = require(`../constants`).SITE_VARS;
 
 // define the schema for our user model
-let schema = mongoose.Schema(
+const schema = mongoose.Schema(
   {
     username: String,
     firstName: String,
@@ -21,7 +19,8 @@ let schema = mongoose.Schema(
       salt: String,
     },
     country: {
-      name: String,
+      value: String,
+      label: String,
       imageUrl: String,
     },
     verified: { type: Boolean, default: false },
@@ -52,67 +51,67 @@ schema.index({ username: 1 }, { unique: true });
 schema.index({ email: 1 }, { unique: true });
 
 schema.statics.validateChain = ValidateChain({
-  firstName: function () {
+  firstName() {
     this.notEmpty().isLength({ min: 1, max: 50 });
   },
-  lastName: function () {
+  lastName() {
     this.notEmpty().isLength({ min: 1, max: 50 });
   },
-  username: function () {
+  username() {
     this.notEmpty().isLength({ min: 1, max: 50 });
   },
-  email: function () {
+  email() {
     this.notEmpty().isLength({ min: 1, max: 100 });
   },
-  emailOrUsername: function () {
+  emailOrUsername() {
     this.notEmpty().isLength({ min: 1, max: 100 });
   },
-  password: function () {
+  password() {
     this.notEmpty().isLength({ min: 1, max: 100 });
   },
 });
 
 schema.statics.generatePassword = function (text) {
-  let salt = crypto.randomBytes(128).toString("base64");
-  let hash = crypto.pbkdf2Sync(text, salt, 100000, 64, "sha512");
+  const salt = crypto.randomBytes(128).toString(`base64`);
+  const hash = crypto.pbkdf2Sync(text, salt, 100000, 64, `sha512`);
   return {
-    salt: salt,
-    hash: hash,
+    salt,
+    hash,
   };
 };
 
 schema.methods.validPassword = function (text) {
   return (
     this.password.hash ==
-    crypto.pbkdf2Sync(text, this.password.salt, 100000, 64, "sha512")
+    crypto.pbkdf2Sync(text, this.password.salt, 100000, 64, `sha512`)
   );
 };
 
-schema.virtual("fullName").get(function () {
+schema.virtual(`fullName`).get(function () {
   if (!this.lastName) return this.firstName;
   return `${this.firstName} ${this.lastName}`;
 });
 
-schema.virtual("isAdmin").get(function () {
+schema.virtual(`isAdmin`).get(function () {
   return this.access >= ACCESS.ADMIN;
 });
 
-schema.virtual("emailHash").get(function () {
+schema.virtual(`emailHash`).get(function () {
   return (
     (this.email &&
       crypto
-        .createHash("md5")
+        .createHash(`md5`)
         .update(this.email.toLowerCase())
-        .digest("hex")) ||
-    ""
+        .digest(`hex`)) ||
+    ``
   );
 });
 
-schema.set("toObject", {
-  transform: function (doc, ret, options) {
+schema.set(`toObject`, {
+  transform(doc, ret, options) {
     delete ret.verifyHash;
     return ret;
   },
 });
 
-module.exports = mongoose.model("User", schema);
+module.exports = mongoose.model(`User`, schema);
