@@ -1,41 +1,68 @@
-'use strict';
+require(`./user`);
 
-require('./user');
+const mongoose = require(`mongoose`);
+const Joi = require(`joi`);
+const CollectionCounter = require(`./collection_counter`);
+const aws = require(`aws-sdk`);
+const { CONN } = require(`../constants`);
 
-const mongoose = require('mongoose');
+const S3 = new aws.S3({ params: { Bucket: CONN.GET_S3_BUCKET() } });
 
-const ValidateChain = require('../lib/utils').validateChain;
+const { ObjectId } = mongoose.Schema.Types;
 
-const ObjectId = mongoose.Schema.Types.ObjectId;
-
-let schema = mongoose.Schema({
-  author: {
-    type: ObjectId,
-    ref: 'User'
+const schema = mongoose.Schema(
+  {
+    _id: { type: Number, min: 1 },
+    author: {
+      type: ObjectId,
+      ref: `User`,
+    },
+    title: String,
+    body: String,
+    blog: String,
+    published: {
+      type: Boolean,
+      default: false,
+    },
+    publishAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  title: String,
-  body: String,
-  page: String,
-}, {
-  timestamps: true
-});
+  {
+    timestamps: true,
+  }
+);
 
+schema.index({ id: 1 });
 schema.index({ author: 1, createdAt: -1 });
 schema.index({ page: 1, createdAt: -1 });
 
-schema.statics.validateChain = ValidateChain({
-  author: function() {
-    this.isMongoId();
-  },
-  title: function() {
-    this.notEmpty().isLength({min: 1, max: 50});
-  },
-  body: function() {
-    this.notEmpty().isByteLength({min: 1, max: 30 * 1000});
-  },
-  home: function() {
-    this.optional().isBoolean();
-  },
+schema.statics.validate = (obj) =>
+  Joi.object({
+    title: Joi.string().min(1).max(100).required(),
+    body: Joi.string().min(1).max(2000).required(),
+    author: Joi.string().min(1).max(100).required(),
+    blog: Joi.string().min(1).max(100).optional(),
+  }).validate(obj);
+
+const C = require(`../constants`);
+schema.pre(`save`, async function preSave() {
+  await CollectionCounter.setIncrementalId(this, `Post`);
+  const path = `assets/blog/${this._id}.html`;
+  console.log(this.body);
+  S3.upload(
+    {
+      Key: path,
+      Body: this.body,
+      ACL: `public-read`,
+      CacheControl: `max-age=1209600`,
+    },
+    (err, details) => {
+      console.log(details);
+    }
+  );
+  this.body = `${C.STATIC_ASSETS_DOMAIN}/blog/${this._id}.html`;
 });
 
-module.exports = mongoose.model('Post', schema);
+module.exports = mongoose.model(`Post`, schema);
