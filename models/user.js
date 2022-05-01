@@ -49,6 +49,7 @@ const schema = mongoose.Schema(
 
 schema.index({ username: 1 }, { unique: true });
 schema.index({ email: 1 }, { unique: true });
+schema.index({ verifyHash: 1 });
 
 schema.statics.validateChain = ValidateChain({
   firstName() {
@@ -73,7 +74,9 @@ schema.statics.validateChain = ValidateChain({
 
 schema.statics.generatePassword = function (text) {
   const salt = crypto.randomBytes(128).toString(`base64`);
-  const hash = crypto.pbkdf2Sync(text, salt, 100000, 64, `sha512`);
+  const hash = crypto
+    .pbkdf2Sync(text, salt, 100000, 64, `sha512`)
+    .toString(`base64`);
   return {
     salt,
     hash,
@@ -82,8 +85,10 @@ schema.statics.generatePassword = function (text) {
 
 schema.methods.validPassword = function (text) {
   return (
-    this.password.hash ==
-    crypto.pbkdf2Sync(text, this.password.salt, 100000, 64, `sha512`)
+    this.password.hash ===
+    crypto
+      .pbkdf2Sync(text, this.password.salt, 100000, 64, `sha512`)
+      .toString(`base64`)
   );
 };
 
