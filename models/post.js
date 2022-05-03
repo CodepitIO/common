@@ -1,10 +1,10 @@
 require(`./user`);
-
 const mongoose = require(`mongoose`);
 const Joi = require(`joi`);
 const CollectionCounter = require(`./collection_counter`);
 const aws = require(`aws-sdk`);
 const { CONN } = require(`../constants`);
+const C = require(`../constants`);
 
 const S3 = new aws.S3({ params: { Bucket: CONN.GET_S3_BUCKET() } });
 
@@ -46,11 +46,9 @@ schema.statics.validate = (obj) =>
     blog: Joi.string().min(1).max(100).optional(),
   }).validate(obj);
 
-const C = require(`../constants`);
 schema.pre(`save`, async function preSave() {
   await CollectionCounter.setIncrementalId(this, `Post`);
   const path = `assets/blog/${this._id}.html`;
-  console.log(this.body);
   S3.upload(
     {
       Key: path,

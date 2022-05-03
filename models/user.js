@@ -1,7 +1,5 @@
-const mongoose = require(`mongoose`);
-const crypto = require(`crypto`);
-
-const ValidateChain = require(`../lib/utils`).validateChain;
+import mongoose from "mongoose";
+import crypto from "crypto";
 
 const { ObjectId } = mongoose.Schema.Types;
 
@@ -27,15 +25,6 @@ const schema = mongoose.Schema(
     verifyHash: String,
     lastAccess: { type: Date, default: Date.now },
     local: {
-      username: String,
-      name: String,
-      surname: String,
-      email: String,
-      password: {
-        hash: String,
-        salt: String,
-      },
-      salt: String,
       verified: { type: Boolean, default: false },
       verifyHash: String,
       lastAccess: { type: Date, default: Date.now },
@@ -50,27 +39,6 @@ const schema = mongoose.Schema(
 schema.index({ username: 1 }, { unique: true });
 schema.index({ email: 1 }, { unique: true });
 schema.index({ verifyHash: 1 });
-
-schema.statics.validateChain = ValidateChain({
-  firstName() {
-    this.notEmpty().isLength({ min: 1, max: 50 });
-  },
-  lastName() {
-    this.notEmpty().isLength({ min: 1, max: 50 });
-  },
-  username() {
-    this.notEmpty().isLength({ min: 1, max: 50 });
-  },
-  email() {
-    this.notEmpty().isLength({ min: 1, max: 100 });
-  },
-  emailOrUsername() {
-    this.notEmpty().isLength({ min: 1, max: 100 });
-  },
-  password() {
-    this.notEmpty().isLength({ min: 1, max: 100 });
-  },
-});
 
 schema.statics.generatePassword = function (text) {
   const salt = crypto.randomBytes(128).toString(`base64`);
